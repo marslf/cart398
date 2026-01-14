@@ -1,0 +1,37 @@
+//works in CPS or CPM (cycle per second or minute)
+//setcps(0.25)
+setcps(130/60/4) //equal to 180 bpms
+
+//s("bd sd cp cp bd bd")
+
+//s("jazz ~ cp ~ rim casio*2")
+
+// Segments inside of segments
+//s("jazz [rim jazz] ~ [casio [casio casio] east casio] east ~ east") 
+
+// Multiplying (speed up) & dividing (slow down)
+//s("bd rim*3 mt lt") 
+//s("bd rim/3 mt lt")
+
+//s("[bd rim/3 mt lt]/2")
+
+//s("<bd casio rim jazz insect east>") // each element is its own cycle
+
+//s("lt ht mt!3")
+
+//------------------------
+//MINI-NOTATION EXERCISE - NEW ORDER'S BLUE MONDAY 
+
+setcps(130/60/4)
+
+s("[bd bd [bd*4] [bd*4] bd bd bd bd]/2")
+
+//------------------------
+//EXERCISE 1
+
+setcps(3)
+//s("hihat*2 , <tambourine:3 ~ gm_contrabass bp bp bp crow > , supersaw")
+
+s(" < ~ gm_contrabass:1 gm_contrabass:2 gm_contrabass:3 > , supersaw , < ~ gm_fx_atmosphere:1 ~ gm_fx_atmosphere:13 ~ gm_fx_atmosphere:5 ~ ~ gm_fx_atmosphere:11*2> ")
+
+//s(" < ~ gm_contrabass:1*6 gm_contrabass:2*1 gm_contrabass:3*2 > , supersaw , < ~ gm_fx_atmosphere:1 ~ gm_fx_atmosphere:13 ~ gm_fx_atmosphere:4!3 ~ ~ gm_fx_atmosphere:11*2> , mpc1000_bp!3 ~ crow/12")
