@@ -1,0 +1,7 @@
+//EXERCISE 1
+
+setcps(3)
+s(" < ~ gm_contrabass:1*6 gm_contrabass:2*1 gm_contrabass:3*2 > , supersaw , < ~ gm_fx_atmosphere:1 ~ gm_fx_atmosphere:13 ~ gm_fx_atmosphere:4!3 ~ ~ gm_fx_atmosphere:11*2> , mpc1000_bp!3 ~ crow/12")
+
+//s("hihat*2 , <tambourine:3 ~ gm_contrabass bp bp bp crow > , supersaw")
+//s(" < ~ gm_contrabass:1 gm_contrabass:2 gm_contrabass:3 > , supersaw , < ~ gm_fx_atmosphere:1 ~ gm_fx_atmosphere:13 ~ gm_fx_atmosphere:5 ~ ~ gm_fx_atmosphere:11*2> ")
