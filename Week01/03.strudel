@@ -1,0 +1,6 @@
+setcps(140/120)
+
+stack(
+  s("sd(3,8,0)"), 
+  s("bd cp bd cp")
+)
