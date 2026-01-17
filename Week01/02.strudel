@@ -1,0 +1,6 @@
+//Basic drum beat
+
+setcps(140/120)
+
+stack(s("clave").mask("<0 0 1 0 1 0 0 0 1 0 0 1 0 0 0 1>").fast(8), 
+  s("bd hh sd hh"))
