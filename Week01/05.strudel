@@ -1,0 +1,7 @@
+setcps(0.5)
+
+stack(
+s("hh!8").gain("[.25 1]*4"),
+s("ace_sd ~ ~ ace_sd ~ ~"),
+s("gm_acoustic_bass:2 ~ gm_acoustic_bass:1 gm_acoustic_bass:3").delay(.5).gain(1.5),
+  )
