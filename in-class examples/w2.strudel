@@ -4,12 +4,12 @@
 //from freesound online (can be done with github as well)
 //use inspector to find the URL of the mp3 file (not the page)
 //URL will be broken, fix by removing extra freesound.org at start 
-samples({
-  zap:'https://cdn.freesound.org/previews/537/537918_11979494-lq.mp3',
-  bass: 'https://cdn.freesound.org/previews/759/759699_169613-lq.mp3',
-  synth_piano: 'https://cdn.freesound.org/previews/524/524537_11630708-lq.mp3'
-}
-)
+//samples({
+//  zap:'https://cdn.freesound.org/previews/537/537918_11979494-lq.mp3',
+//  bass: 'https://cdn.freesound.org/previews/759/759699_169613-lq.mp3',
+ // synth_piano: 'https://cdn.freesound.org/previews/524/524537_11630708-lq.mp3'
+//}
+//)
 
 //setcps(1)
 //s(" ~ ~ zap ~ ")
@@ -17,22 +17,49 @@ samples({
 //stack(
 //  s("bass ~ ~ ~ ~ ~ ~ ~ ").gain(0.8),
 //  s("cp ~ ~ hh hh ~ hh ~").gain(1.2),
-//  s("<bd bd rim bd rim bd rim bd>*2").gain(0.9),
- // note("[37 52 55 <59 48>]*1.5").sound("casio"))
+//s("<bd bd rim bd rim bd rim bd>*2").gain(0.9),
+//
+//  )
 
 //
 
-// EUCLIDEAN RHYTHMS
-//if you give two numbers in parenthesis after an even in a pattern, 
-//then tidal will distribute the first number of sounds equally across the second number of steps
-// first number = amount of sounds 
-// second number: amount of steps the sounds are equally distributed across
+// Euclidean Rythms 
 //note("e5(2,8) b4(3,8) d5(2,8) c5(3,8)").slow(2)
 
-//STACK vs $ 
-//stack = 
-//connected so effects can be applied to all layers at once
-//combines multiple patterns into a single pattern expression 
-//run simulatneously but treated as one unit 
+samples({
+  sr:'https://cdn.freesound.org/previews/510/510049_8033171-lq.mp3
+    })
 
-//
+//s("sr(5,8)")
+
+//--------------------
+
+//ICA 2 — THREE-PERSON DRUM ENSEMBLE (collaborative performance)
+/mars
+samples({
+  snare:'https://cdn.freesound.org/previews/510/510049_8033171-lq.mp3'
+})
+
+$: s("snare(3,8), bp(3,8)").gain(0.2).speed("<1 0.8 0.5>").delay(0.9).lpf(1000)
+$: s("hh(5,8) , rim(3,8)").lpf(800).gain(0.1).delay(0.4)
+$: s("supersaw").gain("<0.5 0.4 0.7>").lpf(800).speed("<1>")
+
+//tara
+samples({
+hat: 'https://cdn.freesound.org/previews/795/795303_17090683-lq.mp3'
+})
+$: s("hat/4 ~").gain(0).delay(0.5).lpf(1000) 
+d4: s("oh*4 hat*8").gain(0) 
+d1: s("perc:2").euclid(2,4).delay(2).pan(10).gain(0.0) 
+
+//eamon
+setcps(130/60/4)
+
+samples({
+  kk: 'https://cdn.freesound.org/previews/274/274775_4965320-lq.mp3'
+})
+
+$: s("[kk(4, 8, <0 0 0 1>)]").speed("0.5 0.3 0.5").gain(0.35).delay("<0 0 0.25 0>").pan("<[0.2 0.6] [0.8 0.2] [0.75 0.25 0.5 0.5] [0.5 0.5 1 0]>")
+
+$: note("[b [e ~ ~ ~] [f [d | g]] [c <a ~>]]/2").sound('supersaw').lpf(1500).gain(0.45)
+$: note("<[e b c a] [e b a a] [ e g c a] [f g c a]>").sound('square').lpf(100).gain(0.35)
