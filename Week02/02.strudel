@@ -1,0 +1,5 @@
+$: s("[bd:1 [sd:3 sd:2] [bd:1 bd:1] sd:3]").bank("dr55")
+$: s("[hh:0|hh:1]*8").bank("dr55")
+$: s("[- - rim -]*4").bank("dr55")
+
+$: n(" [2 -1 5 <7 2>   3 6 <<9,-1> <2,6>> <1 0>],<<2,4>*2 <5,[2  5 ]/2>>/2").scale("d:minor@3").sound("gm_electric_guitar_clean@4")._punchcard()
