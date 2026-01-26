@@ -1,0 +1,6 @@
+setcpm(60)
+
+$: note("[0 3 5 7 | [[0,3] 5 [2,9] 7]]").scale("minor").sound("gm_electric_guitar_jazz").lpf("<800 1200 1000>").delay(0.25).gain(0.9).punchcard().color("pink")
+$: s("bd(2,8)").gain(0.5)
+$: s("rim(3,8)").gain(0.4)
+$: s("hh(8,16)").gain(0.3)
