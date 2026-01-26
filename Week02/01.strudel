@@ -1,0 +1,9 @@
+samples({
+  snare:'https://cdn.freesound.org/previews/510/510049_8033171-lq.mp3'
+})
+
+$: s("snare(3,8), bp(3,8)").gain(0.4).speed("<1 0.8 0.5>").delay(0.9).lpf(1000)
+$: s("hh(5,8) , rim(3,8)").lpf(800).gain(0.1).delay(0.45)
+$: s("supersaw").gain("<0.5 0.4 0.7>").lpf(800).speed("<1>")
+
+$: note("[~ f@2 e@3 ~ a]/2").sound('supersaw').lpf(1500).gain(0.35)._spiral({ steady: .80 })
