@@ -1,0 +1,8 @@
+setcpm(70)
+
+$: s("korgkr55_bd(5,8)").gain(0.7)
+$: s("korgm1_sh(3,8)").gain(0.8)
+$: s("korgminipops_oh(1,8)").gain(0.8)
+// $: note("[d@2 f@2 c d@2 ~ c@4 c g@2 b]/2").sound("gm_electric_guitar_jazz").punchcard()
+$: note("[d@2 f@2 c d@2 ~ c@4 c d@2 e]/2").sound("gm_trumpet").punchcard().gain(0.8)
+$: s("gm_tuba(5,8)").gain(0.5)
