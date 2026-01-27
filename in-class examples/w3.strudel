@@ -1,0 +1,102 @@
+
+// --- WEEK 3 ---
+
+//slider for live performances (only works directly in strudel)
+//setcpm(30)
+//$: s("snare(5,8)").gain(slider(0.5))
+
+// ---------------------
+
+// ICA 1 - mimic the beat 
+// Perreito by Mariah Angeliq
+
+//setcps(90/60/4)
+
+//$: s("bd!4")
+//$: s("[ ~!3 sd ~!2 sd ~]*2") // option 1
+//$: s("~ [~ sd] ~ sd ~ [~ sd] ~ sd") //option 2
+//$: s("sd").struct(" ~ ~ ~ x ~ ~ x ~ ~ ~ ~ x ~ ~ x ~") //option 3 using STRUCT
+//$: s("sd*16").mask("0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 0") //option 4 using MASK
+
+//$: s("bd(2,8)*2") //option 5 euclidian rhythm and mask
+//$: s("sd(3,8)*2").mask("[0 1 1 1]*2") 
+
+// ---------------------
+
+// CONTROLLING SAMPLE (also consult documentation for more)
+
+// begin() : decide when the sample begins 
+// end() : decide when it ends
+// loop() : toggle yes or no (1 or 0) to decide if the sound loops or not
+// loopBegin() : when the loop begins
+// loopEnd() : when the loop ends
+// clip() : legato 
+// ... check documentation for more ...
+
+//ICA 2: Control a long sample from FreeSound 
+//MARS
+//setcps(100/60/4)
+//samples({ beat : 'https://cdn.freesound.org/previews/320/320499_2305278-hq.mp3'
+//})
+
+//$: s("beat").begin("<.55 0.92>").end("<0.85 1>").loop(0).gain(0.3) //.clip("<1 0.8>")
+//$: s("beat").scrub("{.2@5 .5@2}%4").gain(0.5)
+//$: s("lt(1,8)").gain(0.4).lpf(800)
+
+// ---------------------
+
+//PITCHED MATERIAL
+// samples('github:tidalcycles/dirt-samples')
+// n("0")
+// n("0 1 7 8 9 10 11 12 13 14 2 3 4 5 6")
+// n("0 10")
+// n("0 10,3")
+// n("0 10,3 2 1 ~")
+// n("0 10,3 2*2 ~ 5")  
+// n("0 10,~ 2*2 5 8") 
+// n("{0 1 2 ~,9 ~ 5 8 9}")
+// .s("newnotes")
+
+
+//ICA 3 Your First Melody
+//sound banks that are pitched: stab, newnotes, arpy, pluck , etc.
+
+//setcps(120/60/4)
+//$: n(" 2 ~, ~ ~ 3 5, 3 ~ 4 ~, [8 9 4 0 2 4 8 9 | 8 9 4 6 2 6 3 1]").s("pluck")
+
+//you can also map MIDI numbers to notes, 
+//for this, you can used pitched sounds from samples, synths, or wavetables lists
+
+setcps(120/60/4)
+$: n(" [2 -1 5 <7 2>   3 6 <<9,-1> <2,6>> <1 0>],<<2,4>*2 <5,[2  5 ]/2>>/2").scale("d:minor@3").s("gm_electric_guitar_clean@4").gain(0.2)
+//$: n("6 ~ <2, 5> ~ 8 <2,5> 3 <8, 2>").s("pluck").gain(1)
+
+
+//-----------------------------
+
+//ICA 5: group performance - melody and rhythm
+
+//Mars : high register melody
+
+//setcps(120/60/4)
+//$: n(" [2 -1 5 <7 2> 3 6 <<9 , -1> <2,6>> <1  0>],<<2,4>*2 <5,[2  5 ]/2>>")
+ // .scale("G:mixolydian").s("gm_electric_guitar_clean").gain(0.05).speed("[1 1.3]")
+//$: n("[[~ ~ ~ ~ 1 4 6 3]/2] | [ [~@8]/2] | [[ ~ ~ ~ ~ <4, 6>*2 ]/2] ")
+//  .s("gm_distortion_guitar").scale("A2:minor:pentatonic").gain(0.1).speed("1.2")
+
+// tara: low register melody
+//setcps(120/60/4)
+
+//$: note(scale("g2:ionian", "[0 2 4 4 ! 8]*2")).s("arpy").gain(0.2)
+//$: note ("[30*4 32*2 36*6]").sound("sawtooth").delay(0.2).gain(0)
+//$: n("< 0*10 2 *4>")
+//.scale("f2:major").sound("gm_accordion:6")
+//.room(2).jux(rev).sustain(1).delay(0.2).gain(0)
+
+//Eamon : Percussion
+
+//const db = "korgkr55"
+//$: s("bd").gain(0)
+//$: s("<bd:6(3,8) bd:6(5,8,<1 2>)>").gain(0.3).bank(db)
+//$: s("hh(16,32)").bank(db).degradeBy(0.8).delay("0 1 0.3 4 0 0 1").lpf(1900)
+//$: s("<[hh(5,16) | hh:3(2,8)] [hh:4(5,8) | hh:6(3,8)]>").bank("spacedrum").gain(.7).sometimesBy(.5, x=>x.speed("[0.6 | 0.7 | 0.9]")).delay(0.75).chorus(.5).rev().lpf("<900 1100 600 500 1200 900>")
