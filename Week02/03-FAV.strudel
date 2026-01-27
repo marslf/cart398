@@ -1,3 +1,4 @@
+setcpm(30)
 $: s("snare(5,8)").gain(0.8)
 $: s("lt(1,8)").gain(0.6).lpf(800)
 $: s("hh*16").gain(0.7)
