@@ -1,0 +1,7 @@
+setcps(120/60/4)
+
+$: n("[g!2 b@2 c@2 a@2]/4").s("piano").scale("C:major").gain(0.8)
+$: n("[5 3 7 3]/2").s("gm_pad_metallic").gain(0.7)
+$: note("{<f , g> <g , c> <d , a a#>}%8").s("sawtooth").lpf(500).lpq(1).gain(0.4)
+$: s("bd ~ snare!2").gain(0.7)
+$: s("hh*8").gain(0.7)
