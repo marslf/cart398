@@ -1,0 +1,8 @@
+setcps(120/60/4)
+
+$: n("c!4").s("gm_pad_choir").scale("C:phrygian").gain(0.5).lpf(700).room(0.7)
+$: n("[c db f g]/2").s("piano").scale("C:phrygian").gain(0.5).delay(0.4).room(0.5).punchcard().color("lime")
+$: note("{<c , g> <db , f>}%8").s("pluck").lpf(1200).gain(0.35).slow(2)
+$: s("bd ~ ~ ~").gain(0.6).lpf(500)
+$: s("rim ~ rim ~").gain(0.4).delay(0.2)
+$: s("hh*8").gain(0.3).lpf(2000)
