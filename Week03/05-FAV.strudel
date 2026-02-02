@@ -1,0 +1,20 @@
+setcps(120/60/4)
+
+$: n("[c e g b a g e d [f a c] [e g b]]/2")
+  .sound("supersaw").scale("C:major").gain(0.45).lpf("<1200 900 1500 1000>").delay(0.3).room(0.4).slow(2).punchcard().color("red purple blue purple")
+
+$: n("{[e g a b] [d f a c] [g b d e]}%12")
+  .sound("gm_pad_sweep").scale("C:major").gain(0.35).lpf(1000).room(0.6)
+
+$: n("[12 14 15 17 <19 17> 15]/4")
+  .sound("pluck").scale("C:major").gain("<0.2 0.3 0.25>").delay(0.4).hpf(800)
+
+$: n("0 ~ 0 5")
+  .sound("sawtooth").scale("C:major").lpf(600).gain(0.4).slow(2)
+
+$: s("bd ~ bd ~").gain(0.6)
+
+$: s("hh*8").gain(0.35).lpf(3500)
+
+$: n("[c e g b c b g e]/4")
+  .sound("supersaw").scale("C:major").gain(0.5).hpf(900).delay(0.2).room(0.3)
