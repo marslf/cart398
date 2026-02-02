@@ -1,0 +1,7 @@
+setcps(120/60/4)
+
+$: s("bd*4").gain(1)
+$: s("~ clap ~ clap").gain(0.6).delay(0.15)
+$: s("hh*8").gain(0.45).lpf(4000)
+$: n("[5 7 8 7]/2").s("supersaw").scale("C:minor").gain(0.4).delay(0.3).room(0.3)
+$: n("0 0 3 5").s("sawtooth").scale("C:minor").lpf(800).gain(0.5).nudge("<0 0.01 -0.01>")._spiral({ steady: .96 })
