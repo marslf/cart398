@@ -1,0 +1,8 @@
+setcps(100/60/4) 
+
+$: n("{[c e g] [d f a] [b d g] [c# e g#]}%11").s("pluck").scale("C:lydian").gain(0.35).delay(0.2).room(0.4).slow(2)
+$: n("[0 3 5 7 2 4]/2").s("gm_pad_metallic").gain(0.4).lpf(900).room(0.6).slow(1.5)
+$: n("<12 14 13 15 17 14>").s("pluck").gain(0.25).delay(0.3).hpf(800).slow(2)
+$: s("bd ~ ~ rim ~ ~ bd ~").gain(0.5).lpf(600)
+$: s("hh*8").gain(0.2).lpf(2000)
+$: n("{[c e g] [d f a] [b d g]}%7").s("pluck").gain(0.15).slow(3).nudge("<0 0.02 -0.01>")
