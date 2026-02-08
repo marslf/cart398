@@ -1,0 +1,7 @@
+setcps(60/60/4) 
+$: n("c!4").s("gm_pad_choir").scale("C:minor").gain(0.5).lpf(600).room(0.8).slow(2)
+$: n("[c db f g#]/2").s("piano").gain(0.4).delay(0.5).room(0.7).slow(1.5)
+$: n("{<g# , c#> <f , a> <eb , g>}%8").s("pluck").gain(0.25).hpf(700).delay(0.4).slow(2)
+$: s("bd ~ ~ ~").gain(0.3).lpf(400)
+$: s("rim ~ rim ~").gain(0.2).delay(0.2)
+$: n("[12 15 14 17] ~ [13 16 15]").s("sawtooth").gain(0.2).lpf(1200).room(0.6).slow(3)
