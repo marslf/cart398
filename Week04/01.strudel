@@ -1,0 +1,7 @@
+setcps(90/60/4) 
+
+$: n("[c e g e]/4").s("piano").scale("C:major").gain(0.6).delay(0.3).room(0.4)
+$: n("[0 3 5 3]/2").s("gm_pad_warm").scale("C:major").gain(0.4).lpf(1000).room(0.6)
+$: note("{<c , e> <d , g> <e , a>}%8").s("pluck").gain(0.3).lpf(1200).slow(2)
+$: s("bd ~ ~ ~").gain(0.4)
+$: s("hh*8").gain(0.2).lpf(2500)
