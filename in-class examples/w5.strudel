@@ -1,0 +1,76 @@
+// --- WEEK 5 ---
+
+//SOUND REPO
+
+// samples('github:marslf/cart398-sounds/main')
+// $: s("harp:bitcrushed").slow(2).room(0.8).size(0.9).gain(0.7).degradeBy(0.2)
+// $: s("flute:g5*8").fast(2).gain(0.25).lpf(900).degradeBy(0.3)
+
+//--------------------------
+//MODULATION
+
+// Modulating a simple sound
+
+//sound("casio:1*8")
+
+// sound("casio:1*16").speed(saw.slow(2))
+// sound("casio:1*16").speed(sine.slow(2))
+// sound("casio:1*16").speed(sine.slow(2).add(1))
+
+// sound("casio:1*16").speed(tri.slow(2))
+
+// // how to make an autopan?
+// sound("casio:1*16").pan(square.fast(8))
+
+// // A signal can also be sampled with `segment(n)`
+// sound("casio:1*16").speed(tri.segment(8))
+
+// // The output values con be scaled with `range(min,max)`
+// sound("casio:1*16").speed(tri.segment(8).range(1,5))
+
+// Modulating simple sounds with noise
+
+//s("east, hh*16")
+
+// Random noise
+//s("east, hh*16").cutoff(rand.range(100,6000)).pan(rand)
+
+// Perlin (smoother, procedural noise)
+//s("east, hh*16").cutoff(perlin.range(100,6000)).pan(perlin)
+
+// Quicker
+// s("east, hh*16").cutoff(perlin.fast(4).range(100,6000)).pan(perlin.fast(4))
+
+// Choosing random samples 
+// s("east, hh*16")
+// s("east, hh*16").n(irand(8))
+// s("darbuka*16").n(irand(8))
+
+//----------
+
+//ICA 2
+// setcpm(30) 
+
+// samples('github:marslf/cart398-sounds/main')
+
+
+// $: s("east*8").gain(0.5).pan(sine.slow(0.5)).cutoff(perlin.range(100,4000))
+// $: s("hh*16").gain(0.3).cutoff(perlin.fast(4).range(500,3000))
+  
+// $: s("flute:g5 ~ ~ flute:e4 ~ ~ flute:g5 ~ ")
+//     .gain(0.5).speed(saw.slow(2)).pan(perlin.slow(0.55))
+  
+// $: s("harp:bitcrushed*4")
+//   .gain(0.4).speed(sine.slow(0.5).range(0.8,1.2)).cutoff(perlin.fast(1).range(400,1500))
+
+// -----------
+// --- CONTROL ---
+
+//using mouse position as slider
+// n("0 .. 11").scale("<c2:iwato c3:iwato g2:iwato>")
+//   .sound("supersaw")
+//   .lpf(mousex.range(100,10000))
+//   .delayt(0.33)
+//   .delayfb(mousey.range(0,1))
+//   .delay(mousex.range(0,1))
+
