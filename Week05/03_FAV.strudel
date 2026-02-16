@@ -1,0 +1,28 @@
+setcps(115/60/4)
+
+$: s("bd ~ ~ bd ~ bd ~ ~ bd ~ ~ ~ bd ~ bd ~")
+  .gain(0.55).cutoff(sine.range(400,2000)).room(0.1)
+
+$: s("~ ~ clap ~ ~ clap ~ ~ ~ ~ clap ~ ~ clap ~ ~")
+  .gain(0.55).delay(0.15).bank("RolandTR909")
+
+$: s("hh(7,16)")
+  .gain(0.4).lpf(sine.range(2000,6000)).every(4, x => x.fast(1.5))
+
+$: s("perc:3*8")
+  .gain(0.5).degradeBy(0.4).pan(rand).lpf(4000)
+
+$: n("[0@2 ~ 2@2 ~ 3@2 7@2 ~ 5@3 ~ ~ 3@2 ~ 7@2 ~ 2@2 5@3 ~ [3,7] ~ ~]/2")
+  .scale("E:phrygian").sound("sawtooth").lpf(700).gain(0.5).legato(1.3).room(0.2)
+
+$: n("~ [0,4,7] ~ [2,5,9] ~ ~ [0,3,7] ~")
+  .scale("E:phrygian").sound("gm_pad_warm").lpf(600).gain(0.35).legato(2.5).slow(2)
+
+$: n("{<5 7 9> <3 5 7> <2 3 5> <7 9 12>}%8")
+  .scale("E:phrygian").sound("pluck").gain(0.3).delay(0.3).delaytime(0.125).every(6, x => x.fast(2))
+
+$: n("[~ ~ ~ ~ 14@3 ~]/4")
+  .scale("E:phrygian").sound("gm_fx_crystal").gain(0.4).delay(0.4).room(0.6).every(8, x => x.rev())
+
+$: s("~ ~ ~ ~ bytebeat ~ ~ ~ ~ ~ bytebeat ~ ~ ~ ~ ~")
+  .gain(0.25).lpf(1200).n("0 2").degradeBy(0.3)
