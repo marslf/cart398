@@ -1,0 +1,19 @@
+setcps(110/60/4) 
+
+$: s("bd ~ ~ bd ~ ~ ~ ~ bd ~ ~ bd ~ ~ ~ ~")
+  .gain(0.4)
+
+$: s("hh(5,16)")
+  .gain(0.35).lpf(4000).every(4, x => x.fast(2))
+
+$: s("rim ~ ~ rim ~ ~ ~ ~")
+  .gain(0.25).delay(0.1)
+
+$: n("[0 2 4 5 7 5 4 2]")
+  .scale("C:major").sound("piano").gain(0.35).legato(1.5).room(0.3).every(8, x => x.rev()) 
+
+$: n("[0 4 7 11]")
+  .scale("C:major").sound("gm_pad_warm").gain(0.35).lpf(800).room(0.5).legato(2).degradeBy(0.15)
+
+$: n("{<7 9> <5 7> <4 5>}%8")
+  .scale("C:major").sound("pluck").gain(0.25).delay(0.25).every(6, x => x.fast(2))
