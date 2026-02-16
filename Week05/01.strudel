@@ -1,0 +1,9 @@
+setcps(120/60/4)
+$: s("bd").struct(" ~ x ~ x ~ ~ x ~ ~ x ~ x ~ ~ x ~").gain(slider(0.4))
+$: s("bytebeat").struct(" ~ x x x ~ ~ x x ~ x x x ~ ~ x x").gain(slider(0.3)).lpf(900)
+$: s("hh*16").bank("RolandTR909").n("0 2 0 1").gain(0.3)
+
+$: note("c2 <eb2 <g2 g1>>".fast(2))
+  .delay(0.4).gain(0.5).sound("bytebeat").partials([1, 0, 0.3, 0, 0.1, 0, 0, 0.3])._scope()
+$: n("[[0 7] ~ 5 ~ 7 ~ 0 ~ [0 3] ~ 3 ~ 7 ~ [0 7] ~]/2")
+  .scale("C:minor").sound("gm_synth_brass_2").gain(0.7).legato(0.6).lpf(1200).room(0.2)
