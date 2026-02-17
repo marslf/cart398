@@ -1,66 +1,329 @@
-// ---------- WEEK 6 ----------
+// // ---------- WEEK 6 ----------
 
-// -- Using MIDI output --
+// // -- Using MIDI output --
 
-// paste into the browser console : WebMidi.inputs.forEach(d => console.log(d.name))
+// // paste into the browser console : WebMidi.inputs.forEach(d => console.log(d.name))
 
-// setcps(120/60/4)
+// // setcps(120/60/4)
 
-//AAS Player + loopMIDI by Tobias Erichsne 
+// //AAS Player + loopMIDI by Tobias Erichsne 
 
-// NOTE: you might need to close and reopen your browser if it doesnt seem to be connecting properly
+// // NOTE: you might need to close and reopen your browser if it doesnt seem to be connecting properly
 
 
-// Basic MIDI Output
-// Connect to a MIDI device by name (e.g., 'IAC Driver' on Mac, 'loopMIDI' on Windows)
-// javascript// MIDI note numbers (60 = middle C)
-// Swatches - 15
-// note("60 64 67 71")
-//   .midi('loopMIDI Port')
+// // Basic MIDI Output
+// // Connect to a MIDI device by name (e.g., 'IAC Driver' on Mac, 'loopMIDI' on Windows)
+// // javascript// MIDI note numbers (60 = middle C)
+// // Swatches - 15
+// // note("60 64 67 71")
+// //   .midi('loopMIDI Port')
 
-// note("c4 e4 g4 b4")
-//   .midi('loopMIDI Port')
+// // note("c4 e4 g4 b4")
+// //   .midi('loopMIDI Port')
 
-// // Specifying MIDI Channel
-// note("c4 e4 g4 b4")
-//   .midi('loopMIDI Port', 1) // Channel 1
+// // // Specifying MIDI Channel
+// // note("c4 e4 g4 b4")
+// //   .midi('loopMIDI Port', 1) // Channel 1
 
-// // Chords & Patterns
-// note("<[c3,e3,g3] [f3,a3,c4] [g3,b3,d4]>")
-//   .midi('loopMIDI Port') // Channel 1
+// // // Chords & Patterns
+// // note("<[c3,e3,g3] [f3,a3,c4] [g3,b3,d4]>")
+// //   .midi('loopMIDI Port') // Channel 1
 
-// // With Velocity & Duration
-// note("c4 e4 g4 b4")
-//   .velocity("<0.8 0.4 0.6 1.0>")   // velocity 0–1
-//   .legato("<0.1 0.5 1>")           // note length
-//   .midi('loopMIDI Port')
+// // // With Velocity & Duration
+// // note("[c4 e4 g4 b4 c4 e4 c4 e5 g4 e4 c4 e4]/2")
+// //   .velocity("<0.8 0.4 0.6 1.0>")   // velocity 0–1
+// //   .legato("<0.8 0.4 1>")           // note length
+// //   .midi('loopMIDI Port')
 
-// ---------------------
+// // MY FAVS: 169- End Titles, 38- Dear Freddie Chorus, 
+// // 57- Concert Flute 1, 66- Lovely Tines, 96- Swagger Tight EQ (Chord),
+// //119- Doom Drum (var), 130- Lilac, 527- Effervescence, 
+// //
+
+// //----------------------
+
+// //use arrange to play specific sections one at a time (or a few at a time) 
+// //control number of repetitions
+
+
+//   // ---------------------
 
 // setcps(115/60/4)
 
-// $: s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
-//   .gain(0.55).cutoff(sine.range(400,2000)).room(0.1)
-//   .every(3, x => x.sometimes(x => x.speed(0.8)))
+// // $: s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55).cutoff(sine.range(400,2000)).room(0.1)
+// //   .every(3, x => x.sometimes(x => x.speed(0.8)))  
 
-// $: s("~ ~ cp ~ ~ cp ~ ~ ~ ~ cp ~ ~ cp ~ ~")
-//   .gain(0.15).bank("RolandTR909")
+// // $: s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+// //   .gain(0.15).bank("RolandTR909")
 
-// $: s("rim(5,16)")
-//   .gain(0.28).bank("RolandTR909").room(0.05)
-//   .every(2, x => x.slow(1.5))
+// // $: s("rim(5,16)")
+// //   .gain(0.28).bank("RolandTR909").room(0.05)
+// //   .every(2, x => x.slow(1.5))
+// //   .rarely(x => x.fast(2).degradeBy(0.3))
 
-// $: s("hh(8,16)")
+// // $: s("hh(8,16)")
+// //   .gain(0.3).lpf(sine.range(4000,6000))
+// //   .chunk(4, x => x.fast(2).gain(0.6))
+
+// // $: s("lt(3,16)")
+// //   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+
+// // $: s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
+// //   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2)))
+
+// // $: s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
+// //   .gain(0.45).lpf(1200).n("0 2").degradeBy(0.3) 
+
+// // setcps(115/60/4)
+
+// // let sec1 = stack(
+// //   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55)
+// //   .bank("RolandTR909")
+// //  )
+// // let sec2 = stack(
+// //   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+// //   .gain(0.15).bank("RolandTR909"),
+// //   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55)
+// //   .bank("RolandTR909")
+// // )
+// // let sec3 = stack(
+// //   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+// //   .gain(0.15).bank("RolandTR909"),
+// //   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55)
+// //   .bank("RolandTR909"),
+// //   s("hh(8,16)")
+// //   .gain(0.3).lpf(sine.range(4000,6000))
+// //   .chunk(4, x => x.fast(2).gain(0.6)),
+// // s("lt(3,16)")
+// //   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+// //   )
+
+// // let sec4 = stack(
+// //   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55)
+// //   .bank("RolandTR909")
+// //   .cutoff(sine.range(400,2000))
+// //   .room(0.1)
+// //   .every(3, x => x.sometimes(x => x.speed(0.8))),
+// //   s("hh(8,16)")
+// //   .gain(0.3).lpf(sine.range(4000,6000))
+// //   .chunk(4, x => x.fast(2).gain(0.6)),
+// // s("lt(3,16)")
+// //   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+// // )
+// // let sec5 = stack(
+// //   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+// //   .gain(0.55)
+// //   .bank("RolandTR909")
+// //   .cutoff(sine.range(400,2000))
+// //   .room(0.1)
+// //   .every(3, x => x.sometimes(x => x.speed(0.8))),
+// //   s("hh(8,16)")
+// //   .gain(0.3).lpf(sine.range(4000,6000))
+// //   .chunk(4, x => x.fast(2).gain(0.6)),
+// // // s("lt(3,16)")
+// // //   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6)),
+// //   s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
+// //   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2))),
+// //   s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
+// //   .gain(0.45).lpf(1200).n("0 2").degradeBy(0.3) 
+// //   )
+
+
+// setcps(115/60/4)
+  
+// let sec1 = stack(
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55)
+//   .bank("RolandTR909")
+//  )
+
+// let sec2 = stack(
+//   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+//   .gain(0.15).bank("RolandTR909"),
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55)
+//   .bank("RolandTR909")
+// )
+// let sec3 = stack(
+//   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+//   .gain(0.15).bank("RolandTR909"),
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55)
+//   .bank("RolandTR909"),
+//   s("hh(8,16)")
 //   .gain(0.3).lpf(sine.range(4000,6000))
-
-// $: s("lt(3,16)")
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
 //   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+//   )
 
-// $: s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
-//   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2)))
+// let sec4 = stack(
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55)
+//   .bank("RolandTR909")
+//   .cutoff(sine.range(400,2000))
+//   .room(0.1)
+//   .every(3, x => x.sometimes(x => x.speed(0.8))),
+//   s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(4000,6000))
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
+//   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+// )
+// let sec5 = stack(
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55)
+//   .bank("RolandTR909")
+//   .cutoff(sine.range(400,2000))
+//   .room(0.1)
+//   .every(3, x => x.sometimes(x => x.speed(0.8))),
+//   s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(4000,6000))
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
+//   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6)),
+//   s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
+//   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2))),
+//   s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
+//   .gain(0.45).lpf(1200).n("0 2").degradeBy(0.3) 
+//   )
 
-// $: s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
-//   .gain(0.45).lpf(1200).n("0 2").degradeBy(0.3)
+// $: arrange( 
+//   [8, sec1],
+//   [4, sec2],
+//   [4, sec3],
+//   [8, sec4],
+//   [8, sec5]
+// )
 
-// $: n("[0@2 ~ 2@2 ~ 3@2 7@2 ~ 5@3 ~ ~ 3@2 ~ 7@2 ~ 2@2 5@3 ~ [3,7] ~ ~ 0@2 ~ 2@2 ~ [5, 3] ~ 7@2 ~ 5@2 ~ [0,2] ~ 3@2 ~ 7@2 ~ 2@2 5@3 ~ [3,7] ~ ~]/4")
-//   .scale("E:phrygian").sound("sawtooth").lpf(700).gain(0.5).legato(1.3).room(0.2)
+
+// LIVE CODING PERFORMANCE
+
+//mars
+// let sec1 = stack(
+//   s("~ bd ~ bd ~ ~ bd ~ ~ bd ~ ~ bd ~ bd ~")
+//   .gain(0.01)
+//   .bank("RolandTR909")
+//  )
+
+// let sec2 = stack(
+//   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+//   .gain(0.1).bank("RolandTR909"),
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.25)
+//   .bank("RolandTR909")
+//   .room(0.1)
+//   .lpf(800)
+// )
+// let sec3 = stack(
+//   s("~ cp cp ~ ~ cp ~ ~ ~ cp cp ~ ~ cp ~ ~")
+//   .gain(0.15).bank("RolandTR909"),
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.25)
+//   .bank("RolandTR909"),
+//   s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(1000,6000))
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
+//   .gain(0.3).room(0.2).every(2, x => x.degradeBy(0.4))
+//   )
+
+// let sec4 = stack(
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.3)
+//   .bank("RolandTR909")
+//   .cutoff(sine.range(400,2000))
+//   .room(0.5)
+//   .every(3, x => x.sometimes(x => x.speed(0.8))),
+//   s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(4000,6000))
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
+//   .gain(0.2).room(0.2).every(2, x => x.degradeBy(0.6))
+// )
+// let sec5 = stack(
+//   s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.2)
+//   .bank("RolandTR909")
+//   .cutoff(sine.range(400,2000))
+//   .room(0.1)
+//   .every(3, x => x.sometimes(x => x.speed(0.8))),
+//   s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(4000,6000))
+//   .chunk(4, x => x.fast(2).gain(0.6)),
+// s("lt(3,16)")
+//   .gain(0.3).room(0.2).every(2, x => x.degradeBy(0.6)),
+//   s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
+//   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2))),
+//   s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
+//   .gain(0.25).lpf(1200).n("0 2").degradeBy(0.3) 
+//   )
+
+// $: arrange( 
+//   [16, "~"],
+//   [8, sec1],
+//   [8, sec1.cutoff(sine.range(200,800))],
+//   [16, sec2],
+//   [8, sec3],
+//   [16, sec4.gain(0.2)],
+//   [32, sec5],
+//   [8, sec3.gain(0.2)],
+//   [8, sec2],
+//   [10, sec1.gain(0.3)],
+//   [18, "~"]
+// )
+
+// //eamon
+// let sec1 = stack(
+//    note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!2 [d3 [bb3 [bb3 bb3 bb3 ~]]] [d3 [bb3 [bb3 bb3 ~ ~]]]]/8").s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+// )
+
+// let sec1a = stack(
+//    note("[[d3 [bb3 bb3 bb3 bb3]]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!2 [d3 [bb3 [bb3 bb3 bb3 ~]]] [d3 [bb3 [bb3 bb3 ~ ~]]]]/8").s("gm_pan_flute").adsr("0.01:0.2:0.3:0.1"),
+//    note("[[d3 [bb3 [d4|f3]]]!4 [d3 [bb3 [bb3 [d4 | f3] ~ ~]]]!2 [d3 [bb3 [d4 bb4 bb3 ~]]] [d3 [bb3 [bb3 d4 f4 ~]]]]/8").s("tri").adsr("0.01:0.2:0.3:0.1"),
+// )
+
+// let sec1b = stack(
+//      note("[[d3 bb3]!4 [d3 [bb3 [bb3 bb3 ~ ~]]]!2 [d3 [bb3 [bb3 bb3 bb3 ~]]] [d3 [bb3 [bb3 bb3 ~ ~]]]]/8").s("gm_pan_flute").adsr("0.01:0.1:0.1:0.1").room(0.3),
+//      note("[[d3!2 [bb3!2 [d4|f2]!2]]!4 [d3!2 [bb3!2 [bb3!2 [d4 | f3]!2 ~!2 ~!2]]]!2 [d3!2 [bb3!2 [d4!2 bb4!2 bb3!2 ~!2]]] [d3!2 [bb3!2 [bb3!2 d4!2 f4!2 ~!2]]]]").s("tri").adsr("0.01:0.2:0.3:0.1"),
+// )
+
+// $: arrange(
+//   [16, "~"],
+//   [0, sec1a.room(saw.slow(4)).ply(1).lpf("900 800 700 600")],
+// ).gain(1)
+
+// //tara
+
+
+// let sec1 = stack(
+//   note("<d3 f2 g3 bb2>").sound("gm_reed_organ").gain(0.6)
+// )
+
+// let sec2 = stack(
+//   note("<d3 f2 g3 bb2>").sound("gm_reed_organ").gain(0.4),
+//   note("60*4 <72*6>").sound("gm_pan_flute").gain(0.4).legato("<0.2 0.25 1>")
+// )
+
+// let sec3 = stack(
+//   note("<d3 f2 g3 bb2>").sound("gm_reed_organ").gain(0.5),
+//   note("[c5,e5,g4 <bb4>]").sound("gm_pad_metallic").gain(0)
+//     .velocity("<0.8 0.9 1.0>"),
+// )
+
+// let sec4 = stack(
+//   note("<g2 g4> bb*6").sound("gm_fx_echoes").gain(0),
+//   note("<g2 d2 bb3/2>").sound("gm_fx_soundtrack").slow(4).delay(0.4).lpf(500).gain(0.3).velocity("<0.8 0.9 1.0>")
+// )
+
+// arrange(
+//   [8, sec1],
+//   [8, sec2],
+//   [16, sec3],
+//   [64, sec4]
+// )
