@@ -1,0 +1,66 @@
+// ---------- WEEK 6 ----------
+
+// -- Using MIDI output --
+
+// paste into the browser console : WebMidi.inputs.forEach(d => console.log(d.name))
+
+// setcps(120/60/4)
+
+//AAS Player + loopMIDI by Tobias Erichsne 
+
+// NOTE: you might need to close and reopen your browser if it doesnt seem to be connecting properly
+
+
+// Basic MIDI Output
+// Connect to a MIDI device by name (e.g., 'IAC Driver' on Mac, 'loopMIDI' on Windows)
+// javascript// MIDI note numbers (60 = middle C)
+// Swatches - 15
+// note("60 64 67 71")
+//   .midi('loopMIDI Port')
+
+// note("c4 e4 g4 b4")
+//   .midi('loopMIDI Port')
+
+// // Specifying MIDI Channel
+// note("c4 e4 g4 b4")
+//   .midi('loopMIDI Port', 1) // Channel 1
+
+// // Chords & Patterns
+// note("<[c3,e3,g3] [f3,a3,c4] [g3,b3,d4]>")
+//   .midi('loopMIDI Port') // Channel 1
+
+// // With Velocity & Duration
+// note("c4 e4 g4 b4")
+//   .velocity("<0.8 0.4 0.6 1.0>")   // velocity 0–1
+//   .legato("<0.1 0.5 1>")           // note length
+//   .midi('loopMIDI Port')
+
+// ---------------------
+
+// setcps(115/60/4)
+
+// $: s("bd bd ~ bd ~ bd bd ~ bd bd ~ ~ bd ~ bd ~")
+//   .gain(0.55).cutoff(sine.range(400,2000)).room(0.1)
+//   .every(3, x => x.sometimes(x => x.speed(0.8)))
+
+// $: s("~ ~ cp ~ ~ cp ~ ~ ~ ~ cp ~ ~ cp ~ ~")
+//   .gain(0.15).bank("RolandTR909")
+
+// $: s("rim(5,16)")
+//   .gain(0.28).bank("RolandTR909").room(0.05)
+//   .every(2, x => x.slow(1.5))
+
+// $: s("hh(8,16)")
+//   .gain(0.3).lpf(sine.range(4000,6000))
+
+// $: s("lt(3,16)")
+//   .gain(0.5).room(0.2).every(2, x => x.degradeBy(0.6))
+
+// $: s("~ ~ ~ mt ~ ~ ~ mt ~ ~ mt ~ ~ ~ ~ mt")
+//   .gain(0.35).room(0.15).sometimes(x => x.speed(rand.range(0.8, 1.2)))
+
+// $: s("~ ~ ~ ~ bytebeat@2 ~ ~ ~ ~ bytebeat@3 ~ ~ ~")
+//   .gain(0.45).lpf(1200).n("0 2").degradeBy(0.3)
+
+// $: n("[0@2 ~ 2@2 ~ 3@2 7@2 ~ 5@3 ~ ~ 3@2 ~ 7@2 ~ 2@2 5@3 ~ [3,7] ~ ~ 0@2 ~ 2@2 ~ [5, 3] ~ 7@2 ~ 5@2 ~ [0,2] ~ 3@2 ~ 7@2 ~ 2@2 5@3 ~ [3,7] ~ ~]/4")
+//   .scale("E:phrygian").sound("sawtooth").lpf(700).gain(0.5).legato(1.3).room(0.2)
