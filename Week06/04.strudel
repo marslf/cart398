@@ -1,0 +1,45 @@
+//--- 04 calm garden ---
+
+setcps(78/60/4)
+
+$: s("bd ~ ~ ~ ~ ~ ~ ~ bd ~ ~ ~ ~ ~ bd ~")
+  .gain(0.38).cutoff(sine.slow(10).range(300,900)).room(0.35).shape(0.1)
+
+$: s("hh(5,16,3)")
+  .gain(sine.slow(7).range(0.3,0.5)).lpf(sine.slow(11).range(3500,7000))
+  .pan(sine.slow(6)).degradeBy(0.3)
+
+$: s("~ ~ rim ~ ~ ~ ~ rim ~ ~ rim ~ ~ ~ ~ ~")
+  .bank("RolandTR707").gain(0.3).pan(rand).degradeBy(0.4).lpf(5000).room(0.3)
+
+$: n("{<0 2 4 ~> <4 ~ 7 5> <2 4 ~ 7> <~ 5 4 2>}%8")
+  .scale("F:lydian").sound("gm_marimba").gain(0.35).lpf(5500)
+  .delay(0.3).delaytime(0.1875).room(0.45).every(6, x => x.slow(2))
+
+$: n("[0@3 ~ 4@2 ~ 7@3 ~ 5@2 ~ 2@3 ~ 4@2 ~]/2")
+  .scale("F:lydian").sound("sine").lpf(sine.slow(14).range(200,550))
+  .gain(0.45).legato(2.5).room(0.2).slow(2)
+
+$: n("[4 ~ 7 ~ 9 ~ 7 ~ 4 ~ 5 ~ 7 ~ ~ 4]/2")
+  .scale("F:lydian").sound("gm_flute").gain(0.35).lpf(5000)
+  .legato(1.4).delay(0.25).delaytime(0.25).room(0.55).every(5, x => x.slow(2))
+
+$: n("{<0 4 7 ~> <7 ~ 9 4> <2 ~ 5 ~> <4 7 ~ 9>}%8")
+  .scale("F:lydian").sound("gm_orchestral_harp").gain(0.3).lpf(6000)
+  .delay(0.35).delaytime(0.125).room(0.6).every(7, x => x.rev())
+
+$: n("[0@4 ~ 7@4 ~ 4@5 ~ ~ 9@4 ~ 5@4]/2")
+  .scale("F:lydian").sound("gm_choir_aahs").lpf(sine.slow(20).range(500,1000))
+  .gain(0.2).legato(4).room(0.7).slow(2)
+
+$: n("[~ ~ ~ ~ 9@2 ~ ~ ~ ~ ~ ~ ~ 12@2 ~ ~ ~]/4")
+  .scale("F:lydian").sound("gm_tubular_bells").gain(0.3)
+  .delay(0.6).room(0.8).every(8, x => x.rev())
+
+$: n("{<7 ~ 9 ~> <~ 12 ~ 9> <4 ~ 7 ~> <~ 9 ~ 7>}%8")
+  .scale("F:lydian").sound("gm_fx_crystal").gain(0.2).lpf(3000)
+  .delay(0.55).delaytime(0.375).room(0.9).slow(2).every(9, x => x.fast(2))
+
+$: n("[0@6 ~ ~ 4@5 ~ 7@5 ~ ~]/2")
+  .scale("F:lydian").sound("gm_pad_new_age").lpf(sine.slow(25).range(400,800))
+  .gain(0.16).legato(5).room(0.75).slow(3)
