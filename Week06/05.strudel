@@ -1,0 +1,46 @@
+//--- 05 exploration vibes ---
+
+setcps(82/60/4)
+
+$: s("bd ~ ~ ~ ~ bd ~ ~ ~ bd ~ ~ bd ~ ~ ~")
+  .gain(0.52).cutoff(sine.slow(8).range(250,1000)).room(0.45).shape(0.2)
+
+$: s("~ ~ rim ~ ~ ~ rim ~ ~ rim ~ ~ ~ ~ rim ~")
+  .bank("RolandTR909").gain(0.4).pan(rand).degradeBy(0.45).lpf(3500).room(0.3)
+
+$: s("hh(4,16,2)")
+  .gain(0.4).lpf(sine.slow(13).range(2000,5500))
+  .pan(sine.slow(7)).degradeBy(0.5)
+
+$: s("~ ~ ~ metal:3 ~ ~ ~ ~ ~ ~ metal:1 ~ ~ ~ ~ ~")
+  .gain(0.35).delay(0.55).delaytime(0.375).room(0.75).degradeBy(0.4).pan(rand)
+
+$: n("<[0 ~] ~ [~ 5] ~ [3 ~] ~ [2 ~] ~>/2")
+  .scale("B:phrygian").sound("sine").lpf(280).gain(0.4).legato(2).slow(2)
+
+$: n("[0 ~ ~ 3 ~ 5 ~ ~ 3 ~ ~ 0 ~ ~ 7 ~]/2")
+  .scale("B:phrygian").sound("gm_sitar").gain(0.36).lpf(2800)
+  .legato(1.1).delay(0.3).delaytime(0.25).room(0.5).every(5, x => x.slow(2))
+
+$: n("[0@6 ~ ~ 7@5 ~ ~ 5@5 ~ ~]/2")
+  .scale("B:phrygian").sound("sawtooth").lpf(sine.slow(18).range(300,750))
+  .gain(0.3).legato(4).room(0.35).slow(3)
+
+$: n("[0@4 ~ ~ 5@4 ~ 3@5 ~ ~ 7@3 ~ ~]/2")
+  .scale("B:phrygian").sound("gm_pad_new_age").lpf(sine.slow(22).range(400,900))
+  .gain(0.25).legato(3.5).room(0.65).slow(2)
+
+$: n("{<5 ~ 7 ~> <3 5 ~ ~> <~ 7 3 5> <2 ~ ~ 5>}%8")
+  .scale("B:phrygian").sound("gm_orchestral_harp").gain(0.3).lpf(3000)
+  .delay(0.4).delaytime(0.1875).room(0.7).every(6, x => x.rev())
+
+$: n("[~ ~ ~ ~ ~ ~ ~ 9@2 ~ ~ ~ ~ ~ ~ ~ ~]/4")
+  .scale("B:phrygian").sound("gm_fx_crystal").gain(0.35)
+  .delay(0.65).room(0.92).every(7, x => x.rev())
+
+$: n("[0@5 ~ ~ ~ 3@5 ~ ~ 7@4 ~ ~]/2")
+  .scale("B:phrygian").sound("gm_choir_aahs").lpf(sine.slow(20).range(350,700))
+  .gain(0.2).legato(5).room(0.8).slow(3)
+
+$: s("~ ~ ~ ~ bytebeat ~ ~ ~ ~ ~ ~ bytebeat ~ ~ ~ ~")
+  .n("1 3").gain(0.2).lpf(800).degradeBy(0.6).pan(rand).delay(0.3).room(0.5)
