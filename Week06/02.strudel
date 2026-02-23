@@ -1,0 +1,35 @@
+//--- 02 Magical vibes ---
+
+setcps(94/60/4)
+
+$: s("bd ~ ~ ~ bd ~ ~ bd ~ ~ bd ~ ~ ~ ~ ~")
+  .gain(0.5).cutoff(sine.slow(6).range(200,900)).room(0.25).shape(0.15)
+
+$: s("hh(7,16,2)")
+  .gain(0.3).lpf(sine.slow(9).range(2000,5500)).degradeBy(0.35).pan(sine.slow(5))
+
+$: s("~ rim:2 ~ ~ ~ ~ rim:4 ~ ~ rim:1 ~ ~ ~ ~ rim:3 ~")
+  .bank("RolandTR707").gain(0.35).delay(0.25).delaytime(0.1875).room(0.4).degradeBy(0.25)
+
+$: n("<[0,~] [~ 5] [3,~] [2 ~]>/2")
+  .scale("A:phrygian").sound("sawtooth").lpf(sine.slow(16).range(200,600))
+  .gain(0.4).legato(2.2).room(0.2).slow(2)
+
+$: n("[0@4 ~ 4@3 ~ 7@4 ~ 5@4 ~ 2@3 ~ ~ 3@4 ~]/2")
+  .scale("A:phrygian").sound("gm_pad_new_age").lpf(sine.slow(18).range(500,1100))
+  .gain(0.3).legato(3).room(0.5).slow(2)
+
+$: n("{<5 7 ~ 3> <9 ~ 7 5> <3 5 ~ 2> <7 ~ 9 ~>}%8")
+  .scale("A:phrygian").sound("gm_music_box").gain(0.3).delay(0.4).delaytime(0.1875)
+  .room(0.6).lpf(2500).every(5, x => x.slow(2))
+
+$: n("[~ ~ ~ ~ 12@2 ~ ~ ~ ~ ~ 9@2 ~ ~ ~ ~ ~]/4")
+  .scale("A:phrygian").sound("gm_tubular_bells").gain(0.4)
+  .delay(0.55).room(0.75).every(7, x => x.rev())
+
+$: n("{<0 ~ 3 ~> <~ 5 ~ 7> <2 ~ ~ 9> <~ 7 5 ~>}%8")
+  .scale("A:phrygian").sound("gm_fx_crystal").gain(0.3).lpf(1800)
+  .delay(0.5).delaytime(0.375).room(0.85).slow(2).every(9, x => x.fast(2))
+
+$: s("~ ~ ~ ~ bytebeat ~ ~ ~ ~ ~ bytebeat ~ ~ ~ bytebeat ~")
+  .n("0 2 4").gain(0.2).lpf(1000).degradeBy(0.55).pan(rand).delay(0.3).room(0.4)
