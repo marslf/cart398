@@ -1,0 +1,35 @@
+//--- 01 Drifting in space ---
+
+setcps(88/60/4)
+
+$: s("bd ~ ~ ~ ~ ~ bd ~ ~ bd ~ ~ ~ ~ ~ ~")
+  .gain(0.45).cutoff(sine.slow(8).range(300,1200)).room(0.4).shape(0.2)
+
+$: s("hh(5,16)")
+  .gain(0.45).lpf(sine.slow(12).range(1500,5000)).degradeBy(0.5).pan(rand)
+
+$: s("~ ~ ~ metal ~ ~ ~ ~ ~ metal:2 ~ ~ ~ ~ metal:4 ~")
+  .gain(0.3).delay(0.4).delaytime(0.375).room(0.7).degradeBy(0.35).n("3 5 2")
+
+$: n("[0@4 ~ 5@4 ~ 3@6 ~ 7@4 ~ 2@4]/2")
+  .scale("D:dorian").sound("gm_pad_warm").lpf(sine.slow(20).range(400,900))
+  .gain(0.3).legato(3.5).room(0.5).slow(2)
+
+$: n("<0 [~ 5] 3 [2 ~]>/2")
+  .scale("D:dorian").sound("sawtooth").lpf(300).gain(0.45)
+  .legato(2).room(0.15).slow(2)
+
+$: n("{<7 9 ~ 5> <3 ~ 7 ~> <2 5 ~ 9> <~ 7 3 ~>}%8")
+  .scale("D:dorian").sound("sine").gain(0.45).delay(0.5).delaytime(0.25)
+  .room(0.8).lpf(1400).every(6, x => x.slow(2))
+
+$: n("[~ ~ ~ 12@2 ~ ~ ~ ~ ~ ~ ~ ~ 14@3 ~ ~ ~]/4")
+  .scale("D:dorian").sound("gm_fx_crystal").gain(0.4)
+  .delay(0.6).room(0.9).every(8, x => x.rev())
+
+$: s("~ ~ ~ ~ bytebeat ~ ~ ~ ~ ~ ~ bytebeat ~ ~ ~ ~")
+  .n("1 3").gain(0.2).lpf(900).degradeBy(0.5).pan(rand).delay(0.2)
+
+$: n("~ [~ 7] ~ ~ ~ ~ [5 ~] ~ ~ ~ ~ ~ [3 ~] ~ ~ ~")
+  .scale("D:dorian").sound("gm_fx_atmosphere").gain(0.3).legato(2)
+  .lpf(700).delay(0.45).room(0.85).slow(2).every(10, x => x.fast(2))
