@@ -1,0 +1,242 @@
+//WEEK 7 using hydra
+
+//intesting patch: https://hydra.ojack.xyz/?sketch_id=alexandre_1
+
+//BASIC FUNCTION
+osc(20).out()
+osc( 1, 1, 1).out() 
+osc( 1, 1).out() \
+osc( 5, 1, 10).out() 
+
+//--- INTRO EXPERIMENTATION TIME ---
+
+// ROTATE
+osc(1, 2, 5).rotate().out() //gradient at an angle
+osc(1, 2, 5).rotate(5).out() //vertical gradient movement
+
+// KALEIDOSCOPE
+osc(5,-1,5).rotate(0, 0.2).kaleid().out()
+
+// REPEAT
+osc(5, 1, 10).rotate(0, 0.2).kaleid().repeat().out()
+
+// PIXELATE
+osc( 5, 1, 10).rotate(0, 0.2).kaleid().pixelate(100,10).out()
+
+// NOISE
+noise(4).color(2, 1).out()
+
+// COLORAMA
+osc(5,-1,5).rotate(0, 0.2).kaleid().colorama().out()
+
+//SHAPE
+shape(3).repeat(3, 2).scrollX(0, 0.1).out()
+shape(3).rotate(0, 0.5).colorama().out()
+
+//-------------
+
+// TYPES OF SOURCES
+
+// OSC
+osc(10).out()
+
+// SOLID 
+solid(10).out()
+
+//NOISE
+noise(10).out()
+
+// VORONOI
+voronoi(10).out()
+voronoi(100, 10, 10).out()
+voronoi(10, 1, 10).out()
+
+// SHAPE
+shape(3).out()
+
+// GRADIENT
+gradient(2).out()
+
+//--------------
+
+//ARROW MATH FUNCTIONS + TIME
+osc(() => Math.sin(time*10) * 0.5 +0.5 +1, 0 ,0).out()
+
+noise( () => Math.sin(time/10)*50, () => Math.sin(time/2)/500).out()
+
+//--------------
+
+// --- GEOMETRY TRANSFORMS ---
+//source > geometry trasnform > color transform . out
+
+//ROTATE(angle, speed)
+osc( 5, 1, 10).rotate(20, 1).out() 
+osc( 5, 1, 10).rotate(10, 4).out()
+
+//SCALE(amount, xMult, yMult, offsetX, offsetY)
+shape(4, 0.3, 0).scale(1, 9/16, 2).out()
+shape(4, 0.3, 0).scale(()=> 0.125*Math.sin(2*time)+0.05, 9.16).out()
+
+//ICA 1
+shape(60, 0.5, 0).color(1,0,0).scale(()=> 0.5*Math.sin(5*time), 0.5,1).out()
+
+voronoi(10).color(1,1,0).scale(()=> Math.sin(1.5*time)+5).out()
+
+//OUTPUTS
+
+//hydra has 4 virtual buffers : o0,o1,o2,o3 (default is o0)
+//out(o2)
+//render() //to show all 4 splitscreen
+//render(o2) //show o2 full screen
+
+shape(60, 0.5, 0).color(1,0,0).scale(()=> 0.5*Math.sin(5*time), 0.5,1).out(o0)
+voronoi(10).color(1,1,0).scale(()=> Math.sin(1.5*time)+5).out(o1) 
+osc(1, 2, 5).rotate(5).out(o2)
+osc(() => Math.sin(time*10) * 0.5 +0.5 +1, 0 ,0).out(o3)
+
+render(o1)
+
+// -------------------------
+
+//ICA 2 exploration 
+
+// - V1 -
+voronoi(10)
+  .color(1,0.5,0)
+  .colorama(()=> Math.sin(time*0.2)*0.5 + 0.5)
+  .rotate(()=> time*0.05)
+  .scale(()=> Math.sin(0.8*time)*0.1 + 1)
+  .modulate(
+    osc(3,0,0.5)
+      .rotate(()=>time*0.1)
+      .scale(1.2),
+    0.1
+  )
+  .out()
+
+// - V2 -
+
+voronoi(10, 0.3, 0.8)
+  .color(1,0.5,0)
+  .colorama(()=> Math.sin(time*0.2)*0.5 + 0.5)
+  .rotate(()=> time*0.05)
+  .scale(()=> Math.sin(0.8*time)*0.1 + 1)
+  .modulate(
+    osc(3,0,0.5)
+      .rotate(()=>time*0.1)
+      .scale(1.2),
+    0.1
+  )
+  .diff(
+    noise(15,.04).brightness(.2).contrast(1.3)
+    .mult( osc(9,0, ()=>Math.sin(time/5)+13 ) )
+    .rotate( ()=>time/33 ))
+  .mult(
+    shape(100,0.5,0.02)
+      .scale(1,0.8)
+      .scrollY(()=> Math.sin(time*0.3)*0.02)
+  )
+  .out()
+
+// CLASS PERFORMANCE 
+  // with b for visuals and tara for melody
+
+  // $: s("bd ~ bd ~ ~ bd ~ bd bd ~ ~ bd ~ bd ~ ~")
+//   .bank("RolandTR909")
+//   .gain(0.2).cutoff(sine.slow(4).range(500,2500)).shape(0.3).room(0.08)
+//   .every(3, x => x.sometimes(x => x.speed(0.8)))
+
+//$: s("~ ~ ~ ~ hh ~ ~ ~ ~ ~ hh ~ ~ ~ hh ~")
+//  .bank("RolandTR909").gain(0.2).room(0.2).pan(0.5)
+
+// $: s("bd [bd bd] ~ bd ~ bd [bd bd] ~")
+//   .bank("RolandTR909").gain(0.1).lpf(300)
+  
+// $: n("~ [0,4] ~ [2,9] ~ ~ [3,7] ~")
+//   .scale("E:phrygian").sound("gm_pad_warm").lpf(900).gain(0.25).speed(1.9)
+// /$: s("oh(7,16)")
+ // .bank("RolandTR909").gain(0.3).pan(0.1).speed(1).lpf(800)
+//$: s("lt(9,16)").gain(0.1).room(0.2).every(2, x => x.degradeBy(0.6)).speed(1.3)//.lpf(600)
+
+//   samples({
+//   bow: 'https://cdn.freesound.org/previews/487/487490_7295656-lq.mp3',
+ 
+// })
+
+
+// $: s("rim*4").gain(0).delay(1).room(0.8).fft(3)
+// $: note("<C3> F2 A2")
+//   .fast(2)
+//   .sound("sax_vib")
+//   .delay("<0 0.25 0.5 0.75>")
+//   .gain(0)
+//   .room(0.6)
+//   .lpf(2000)
+//   .pan(sine.slow(3))
+
+
+//  $: note("[c4*4,e3*7 <f4/8> <bb2>/8]")
+//     .sound("gm_overdriven_guitar").gain(0).velocity("<0.8 0.9 1.0>") 
+
+
+// $: note("<C4*6> <F4*4 A2>")
+//   .slow(2)
+//   .sound("gm_overdriven_guitar")
+//   .delay("0.25")
+//   .gain(0)
+//   .room(0.6)
+//   .lpf(2000)
+//   .pan(sine.slow(3))
+
+// $: n("<55, 63> 65").sound("wt_digital_echoes").gain(0.3).legato(0.4).lpf(5000).room(0.4)
+
+  osc(P("4 5 6"), 2)
+  .color(0, 0, 0.2)
+  .colorama(P("0.3 0.6 1 5 7"))
+  .add(noise(4, 1))
+  .rotate(0.6)
+  .kaleid(P("2 1 1"))
+  .out()
+
+// voronoi(3, P(0.2), 0.8)
+//   .color(0.9, 0.9, 1)
+//   .scale((2, 0.5, 0.5, 0.5, 0.5))
+//   .colorama(0.2)
+//   .add(gradient(3, 4, 5).color(1, 1, 1))
+//   //.kaleid(P(3, 4, 6))
+//   //.add(shape(100, P(8), 0.01).scale(() => Math.sin(time), 9/16).color(1, 0.8, 0.8).colorama(0.3))
+//   .add(osc(P(4), 0.2).scale(0.6))
+//   .out()
+
+osc(P(2), P(2))
+  .color(0.3, 0, 0.4)
+  .colorama(0.4)
+  .saturate(P(3))
+  .rotate( () => time%360)
+  .scale(() => P(0.125*Math.sin(2*time)+0.5), 9/16, 1, 0.4, 0)
+  .kaleid(P("4 3 4 5"))
+  .add(noise(P("5 7 20 30")))
+  //.add(shape(3).repeat(4, 3, 0, 0).scrollY(3).colorama(0.6).scale(0.125*Math.sin(2*time) + 0.5))
+  .out()
+
+noise(3, 0.1)
+  .color(0.6, 0.5, 1)
+  .colorama(P("10 4 2 7"))
+  .posterize(3, 1, 0.5)
+  .kaleid(P("4 5 6 7"))
+  .scale(3, 0.65, 0.5)
+  .saturate(0.4)
+  .out();
+
+voronoi(5,0.8,0.3)
+  .scale(1.75, 0.65, 0.5)
+  .color(1, 1, 0.5)
+  .add(noise(5).colorama(4))
+  .out()
+
+
+
+
+
+
+
