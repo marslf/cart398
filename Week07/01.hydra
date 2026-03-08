@@ -1,0 +1,12 @@
+//swirling trailing shape
+
+src(o0)
+  .scale(0.99)
+  .add(shape(6)
+       .scale(0.3)
+       .colorama(5)
+       //.rotate(() => time * 0.6) //idk if this is a cool effect with it or not 
+       .rotate(() => time * 0.6)
+       .scrollX(() => Math.sin(time)*0.3)
+       .scrollY(() => Math.cos(time*0.7)*0.3).modulate(osc(4,0.2)))
+  .out(o0)
