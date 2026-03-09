@@ -1,0 +1,6 @@
+osc(40, 0.05, () => Math.sin(time * 0.3) * 2)
+  .rotate(() => time * 0.05)
+  .modulate(noise(3, 0.4), 0.3)
+  .mult(osc(7, 0.1, 2).rotate(() => -time * 0.08))
+  .colorama(() => 0.5 + Math.sin(time * 0.2) * 0.3)
+  .out(o0)
