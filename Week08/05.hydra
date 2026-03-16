@@ -1,0 +1,15 @@
+osc(40, 0.0, 0)
+  .modulate(
+    osc(8, 0.15, 1)
+      .rotate(0.8),
+    0.08
+  )
+  .add(
+    shape(100, () => 0.3 + 0.2 * Math.sin(time * 2), 0.3)
+      .color(0.6, 0.9, 1.0),
+    0.4
+  )
+  .brightness(() => 0.05 * Math.sin(time * 3))
+  .contrast(1.5)
+  .hue(() => time * 0.08)
+  .out()
