@@ -1,0 +1,10 @@
+voronoi(12, 0.3, 0.2)
+  .hue(() => Math.sin(time * 0.4) * 0.5)
+  .modulate(
+    osc(20, 0.1).kaleid(6),
+    0.04
+  )
+  .saturate(2.2)
+  .contrast(1.6)
+  .kaleid(8)
+  .out()
