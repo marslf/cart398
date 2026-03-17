@@ -188,36 +188,32 @@ src(s0)
   .out()
 
 
-src(s0).modulate(
-  osc( 2, -0.3, 100 )
-  .rotate(15)
-)
-.mult(
-  osc( 215, -0.1, 2)
-  .pixelate( 50, 50 )
-)
-.color( 0.9, 0.0, 0.9 )
-.modulate(
-  osc( 6, -0.1 )
-  .rotate( 9 )
-)
-.add(
-  osc( 10, -0.9, 900 )
-  .color(1,0,1)
-)
-.mult(
-  shape(900, 0.2, 1)
-  .luma()
-  .repeatX(2)
-  .repeatY(2)
-  .colorama(10)
-)
-.modulate(
-  osc( 9, -0.3, 900 )
-  .rotate( 6 )
-)
-.add(
+
+
+
+
   osc(4, 1, 90)
   .color(0.2,0,1)
 )
 .out()
+
+
+s0.initVideo("https://media.giphy.com/media/AS9LIFttYzkc0/giphy.mp4")
+
+
+src(s0)
+  .modulate(osc(10,0.25,0))
+  .scale(() => 1 + a.fft[0] * 0.3)
+  .modulateKaleid(osc(55),0.1,1)
+  //.colorama([0.1, 0.2, 0.1, 0.1, 0.3])
+  .colorama([0.15, 0.1, 0.12])
+  //colorama(0.13)
+  //.modulateRepeatX(osc(10), 5.0, ({time}) => Math.sin(time) * 5)
+  .modulate(osc(25,0.1,0.5)
+              .kaleid(50)
+              .scale(({time})=>Math.sin(time*1)*0.5+1)
+              .modulate(noise(0.6,0.5)),
+              0.5)
+  .modulate(noise(3),()=>a.fft[0])
+  //.scale(1,0.5,0.05)
+  .out()
