@@ -1,0 +1,135 @@
+// -- CLASS PERFORMANCE EXERCISE --
+
+
+//MARS
+$: note("<c#1 b0 e1 c#1>").sound("gm_synth_bass_1")
+  .gain(0.1)
+  .room(0.2)
+  .cutoff(400)
+  .resonance(8)
+  .slow(2)
+
+$: note("<[c#3,e3,g#3] [b2,d3,f#3] [e3,g#3,b3] [c#3,f#3,a3]>/2")
+  .sound("gm_lead_2_sawtooth")
+  .gain(0.1)
+  .struct("x*8")
+  .room(0.9)
+  .delay(0.6)
+  .cutoff(sine.slow(16).range(600, 2400))
+  .pan(cosine.range(-0.5, 0.5))
+  .speed(1.2)
+
+$: s("hh*16")
+  .euclid(7, 16)
+  .gain(perlin.range(0.05, 0.15))
+  .room(0.8)
+  .delay(0.3)
+  .speed(perlin.range(0.8, 1.0))
+  .pan(sine.range(-0.8, 0.8))
+  .cutoff(6000)
+
+$: s("bd").euclid(3,8)
+  .gain(0.15)
+  .room(0.1)
+  .delay(0.3)
+  .shape(0.01, 0.1, 0, 0)
+  .lpf(200)
+
+$: s("rim*4")
+  .gain(perlin.range(0.05, 0.15))
+  .speed(perlin.range(0.5, 2))
+  .delay(0.6).room(0.7)
+  .pan(rand.range(-1, 1))
+  .mask(perlin.range(0, 1).slow(3))
+
+//TARA
+
+
+samples({
+open: 'https://cdn.freesound.org/previews/468/468088_8598233-lq.mp3',
+  talk: 'https://cdn.freesound.org/previews/255/255880_4062622-lq.mp3'
+})
+$: s("talk").gain(0).fft(7).sustain(1)
+$: s("open").gain(0).delay(0.25)
+
+$: note("c#2@1 e2@4").sound("gm_lead_1_square").gain(0).room(0.95).slow(2).transpose(2)
+$: n("<b2,d3,f#4>")
+  .scale("F:minor").s("saxello").transpose(1).gain(0)
+$: note("<c#4@>").sound("gm_lead_3_calliope").slow("<2 4 6 8>").delay(0.75).lpf(250)
+  .gain(0.6)
+$: s("bd:3").euclid(1,4).off(1/4, add(6)).delay(0.2).fft(4).gain(0).cutoff(1000)
+$: s("bd:8").euclid(5,8).off(1/4, add(2)).delay(0.75).gain(0).cutoff(200).pan(0.1)
+$: s("perc:4").euclid(2,4).delay(0.5).fft(2).gain(0) 
+$: s("bd*2 bd bd bd ~ bd bd bd ").fft(2).gain(0).lpf(2000).delay(0.3).pan(-0.1)
+
+
+$: "<[c# e2 f2]>/4".layer(
+
+     //x=>x.sub(2).struct("<x*8>").n().s('supersaw').clip(2).lpf("<2200>/12").gain(0).lpe("<1 1.5 2 2!1>/12"),
+)
+
+//EAMON (HYDRA)
+a.show()           // overlay FFT visualization
+
+a.setBins(4)       // number of frequency bins (default: 4)
+a.setSmooth(0.5)   // smoothing 0–1 (default: 0.4)
+a.setCutoff(2)     // noise floor — values below this → 0
+a.setScale(10)      // output amplitude scaling
+
+s1.initImage("https://picsum.photos/1920/1080")
+s2.initImage("https://picsum.photos/1920/1080")
+
+
+// frequency drives oscillator frequency
+
+// frequency drives oscillator frequency
+noise(100,10).pixelate(() => a.fft[1]*10, () => a.fft[0]*4+2).color([1,0,1,1],[0,1,1,1,1])
+  //.colorama([0.005,0.33,0.66].fast(0.125))
+  .blend(o3, 0.5)
+  .mask(shape(100,() => a.fft[2]+0.,0.001).scrollY([0., -0.2, -0.2, 0.2].fast(2)).scrollX([-0.2,0.2].fast(2)).scale(1,0.5)).out(o1)
+
+src(s1).modulate(noise(10), 0.4).pixelate(10,10).layer(noise(2,2).pixelate(() => a.fft[1]*4, () => a.fft[0]*4+2)
+  .color([0,0,1,0.2,0],[1,0.2,1,1,1]).colorama(0.1)
+  .blend(o3, 0.9)
+  .mask(
+    shape(100,() => a.fft[2]+0.1, 0.1)
+      .add(shape(4,P("[0.3 0.4 0.6 0.5]*2")).scrollY(()=>a.fft[0]*1), 0.8)
+      .add(shape(100,P("[0.3 0.4 0.6 0.5]*2")).scrollY(()=>a.fft[0]*-1), 0.8)
+      .add(shape(4,P("[0.3 0.4 0.6 0.5]*2")).scrollX(()=>a.fft[0]*1), 0.8)
+      .add(shape(100,P("[0.3 0.4 0.6 0.5]*2")).scrollX(()=>a.fft[0]*-1),0.8)
+      .scale(1, 0.5)
+      .scrollY(-0.22,0.22 ,0.22, -0.22)
+      .scrollX(-0.22, -0.22)
+  )
+).out(o0)
+
+
+
+src(s2).modulate(noise(10), 0.04).pixelate(() => a.fft[0]*5, () => a.fft[0]*5).mask(
+    shape(100,0.2,0.001)
+      .add(shape(100,()=>a.fft[0]*0.5).scrollY(-0.22))
+      .add(shape(100,()=>a.fft[0]*0.5).scrollY(0.22))
+      .add(shape(100,()=>a.fft[0]*0.5).scrollX(-0.22))
+      .add(shape(100,()=>a.fft[0]*0.5).scrollX(0.22))
+      .scale(1, 0.5)    
+  ).out(o3)
+
+osc(2,2).color([1, 0, 0.5, 1].fast(2), [0, 1, 0.2, 1].fast(2), [0.5, 0, 1, 0.3].fast(2)).pixelate(10,10).layer(noise(2,2).pixelate(() => a.fft[1]*4, () => a.fft[0]*4+2)
+  .color([1,0,0,1,0],[0,1,0,1,1])
+  .colorama([0.005,0.33,0.66].fast(0.125))
+  .blend(o0, 0.5)
+  .mask(
+    shape(4,() => a.fft[2]+0.1,0.001)
+      .add(shape(10,() => a.fft[2]+0.4,0.001).scrollY(-0.22))
+      .add(shape(10,() => a.fft[2]+0.4,0.001).scrollY(0.22))
+      .add(shape(10,() => a.fft[2]+0.4,0.001).scrollX(-0.22))
+      .add(shape(10,() => a.fft[2]+0.4,0.001).scrollX(0.22))
+      .scale(1, 0.5)
+      .scrollY([0.2, -0.2, -0.2, 0.2].fast(2))
+      .scrollX([-0.2, 0.2].fast(2))
+  )
+).out(o2)
+
+render(o1)
+  
+
