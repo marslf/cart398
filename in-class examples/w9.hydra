@@ -1,0 +1,223 @@
+// --- USING IMAGES ---
+
+s0.initImage("https://picsum.photos/1920/1080")       // random image
+
+src(s0).out()                                        // raw image
+
+src(s0).kaleid(5).out()                              // kaleidoscope
+
+src(s0).modulate(noise(4), 0.04).out()               // warp the image
+
+src(s0).mult(osc(10, 1, 1), 1).out()           // blend with oscillator
+
+
+src(s0).modulate(noise(10), 0.04).mult(osc(2, 1, 1), 1).out()  
+
+
+// --- USING CAMERA ---
+
+s0.initCam()
+
+src(s0).out() // raw camera
+
+src(s0).hue(0.5).saturate(2).out() // color-shifted camera
+
+// camera as modulator (the camera warps an oscillator)
+osc(10, 0.1, 1).modulate(src(s0), 0.05).out()
+
+// synth over camera (blend)
+src(s0).blend(osc(10, 0.1, 1), 0.3).out()
+
+// camera driving a feedback loop
+src(s0).diff(o0).out(o0)
+
+
+// ---  ---
+
+// External sources
+// Initialize webcam into buffer s0
+s0.initCam()
+s0.initCam(1) // second camera
+
+// Use src() to pipe buffer into the patch
+src(s0).out()
+
+// Transforms on camera input
+src(s0).contrast(1.5).saturate(2).out()
+
+// Screen capture
+s1.initScreen()
+src(s1).out()
+
+// Combine camera with synth
+src(s0).modulate(osc(10), 0.05).out()
+src(s0).blend(osc(10, 0.1, 1), 0.5).out()
+
+// -- SCREEN CAPTURE ---
+
+s1.initScreen()
+
+// raw screen capture
+src(s1).out()
+
+// glitch the screen
+src(s1).diff(o0).out(o0)
+
+// screen + modulate
+src(s1).modulate(noise(3), 0.02).out()
+
+// feedback on screen capture
+src(s1)
+
+// --- USING VIDEO ---
+
+s0.initVideo("https://media.w3.org/2010/05/sintel/trailer.mp4")
+
+// basic playback
+src(s0).out()
+
+// apply transforms
+src(s0).color(1, 0.5, 0).out()
+
+// use video as modulator
+osc(10, 0.1, 1).modulate(src(s0), 0.1).out()
+
+// blend video with synth texture
+src(s0)
+
+
+// ----- AUDIO REACTIVITY -----
+
+// The a object — [ FFT analyser ]
+// Hydra exposes an audio analyser via the a object — it reads from the microphone or system audio
+
+// a.show()           // overlay FFT visualization
+// a.hide()           // remove the overlay
+
+// Configuration:
+
+// a.setBins(4)       // number of frequency bins (default: 4)
+// a.setSmooth(0.9)   // smoothing 0–1 (default: 0.4)
+// a.setCutoff(2)     // noise floor — values below this → 0
+// a.setScale(5)      // output amplitude scaling
+
+// Values accessed as:
+
+// a.fft[0]  // bin 0 — typically sub-bass
+// a.fft[1]  // bin 1 — bass / low-mids
+// a.fft[2]  // bin 2 — mids
+// a.fft[3]  // bin 3 — highs
+
+//example patch: 
+
+a.show()
+
+a.setBins(4)     // number of frequency bins (default: 4)
+a.setSmooth(0.4) // smoothing 0–1 (default: 0.4)
+a.setCutoff(5)   // noise gate — values below this → 0
+a.setScale(2)    // output amplitude scaling
+
+frequency drives oscillator frequency
+osc(
+  () => a.fft[0] * 60 + 10,   // bass → freq
+  0.01,
+  () => a.fft[2] * 2           // mids → offset
+).out()
+
+shape pulsing with the beat
+shape(5, () => a.fft[0] * 0.5 + 0.1, 0.01)
+  .color(() => a.fft[1], 0.5, () => a.fft[3])
+  .scale(1, 9/16)
+  .out()
+
+// audio + complex chains
+
+a.setBins(4)
+a.setSmooth(0.85)
+a.setCutoff(5)
+a.setScale(1)
+
+// noise scale driven by sub-bass
+noise(() => a.fft[0] * 30 + 3)
+  .modulate(osc(3, 0.1), () => a.fft[1] * 0.2)
+  .kaleid(() => Math.floor(a.fft[2] * 8) + 3)
+  .color(() => a.fft[0], () => a.fft[2], () => a.fft[3])
+  .out()
+
+// ----- ICA 1 : exploration -----
+
+// load random image
+//s0.initImage("https://picsum.photos/1920/1080")
+
+s0.initVideo("https://media.giphy.com/media/AS9LIFttYzkc0/giphy.mp4")
+
+src(s0)
+  .modulate(osc(10, 0.2, 1.5).rotate(0, 0.4).kaleid(3),0.05)
+  .modulate(noise(2, 0.1).scrollY(0, 0.05),0.03)
+  .color(1.2, 0.9, 1.3)
+  .hue(() => Math.sin(time * 0.2))
+  .kaleid(4)
+  .scale(() => 1 + Math.sin(time * 0.3) * 0.02)
+  .scrollY(() => Math.sin(time * 0.2) * 0.02)
+  .modulate(noise(3),()=>a.fft[0])
+  .out()
+
+src(s0)
+  .scale(0.5,0.5)
+  .color([0.5,2].smooth(1),0.3,0)
+  .repeat(2,2)
+  .modulateScale(osc(3,0.5),-0.6)
+  .add(o0,0.5)
+  .scale(0.9)
+  .out()
+
+src(s0)
+  .modulate(osc(10,0.25,0))
+  .modulateScale(osc(3))
+  .modulateKaleid(osc(55),0.1,1)
+  //.colorama([0.1, 0.2, 0.1, 0.1, 0.3])
+  .colorama(0.15)
+  //.modulateRepeatX(osc(10), 5.0, ({time}) => Math.sin(time) * 5)
+  .modulate(osc(25,0.1,0.5)
+              .kaleid(50)
+              .scale(({time})=>Math.sin(time*1)*0.5+1)
+              .modulate(noise(0.6,0.5)),
+              0.5)
+  .modulate(noise(3),()=>a.fft[0])
+  //.scale(1,0.5,0.05)
+  .out()
+
+
+src(s0).modulate(
+  osc( 2, -0.3, 100 )
+  .rotate(15)
+)
+.mult(
+  osc( 215, -0.1, 2)
+  .pixelate( 50, 50 )
+)
+.color( 0.9, 0.0, 0.9 )
+.modulate(
+  osc( 6, -0.1 )
+  .rotate( 9 )
+)
+.add(
+  osc( 10, -0.9, 900 )
+  .color(1,0,1)
+)
+.mult(
+  shape(900, 0.2, 1)
+  .luma()
+  .repeatX(2)
+  .repeatY(2)
+  .colorama(10)
+)
+.modulate(
+  osc( 9, -0.3, 900 )
+  .rotate( 6 )
+)
+.add(
+  osc(4, 1, 90)
+  .color(0.2,0,1)
+)
+.out()
