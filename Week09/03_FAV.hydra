@@ -1,0 +1,14 @@
+voronoi(12, 0.8, 0.1)
+  .thresh(0.5, 0.04)
+  .luma(0.4, 0.1)
+  .color(0, 0.4, 1)
+  .modulate(noise(3, 0.5), 0.3)
+  .add(
+    voronoi(25, 2, 0)
+      .color(2, 1.2, 0)
+      .scale(() => Math.sin(time * 0.3) * 0.2 + 0.9),
+    0.4
+  )
+  .brightness(() => Math.sin(time * 0.6) * 0.1 - 0.05)
+  .saturate(2)
+  .out()
