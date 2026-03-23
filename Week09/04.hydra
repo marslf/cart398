@@ -1,0 +1,8 @@
+osc(6, 0.05, 1.2)
+  .color(0.2, 1.5, 2.0)
+  .rotate(0.4, 0.01)
+  .modulateScale(osc(3, 0.02).rotate(1), 0.4)
+  .blend(osc(14, 0.03, 0.5).color(2, 0.3, 1).rotate(-0.3), 0.5)
+  .saturate(2.5)
+  .brightness(() => Math.sin(time * 0.4) * 0.2)
+  .out()
