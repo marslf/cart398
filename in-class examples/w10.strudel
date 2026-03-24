@@ -1,0 +1,87 @@
+// in class performance w/ Hanif 
+
+setcpm(60)
+
+// 1
+$: s("bd ~ bd:2 ~")
+  .gain("0.3 0.2")
+  .room(0.3)
+  .shape(0.3)
+
+//4
+$: s("~ cp ~ cp")
+  .gain("0.6, 0.3").hpf(4000).room(0.2).decay(0.4)
+
+// // 3
+$: s("hh*8")
+  .gain(0.3).hpf(2000)
+
+$: s("hh*8")
+  .gain(perlin.range(0.1, 0.4))
+  .delay(0.4)
+  .room(0.8)
+  .cutoff(6000)
+
+// 2
+$: note("[a2 ~ c3 ~ a2 ~ g2 e2]/2")
+  .s("sawtooth")
+  .lpf("<250 500 300>").resonance(1)
+  .gain(0.3).shape(0.4)
+  .decay(0.0).sustain(1).delay(0.0)
+
+$: note("[a4 c5 e5 g5 e5 c5 a4 g4]/8")
+  .s("square")
+  .gain(0.1).decay(0.2).sustain(2)
+  .delay(0.4).delaytime(0.25).decay(0.1)
+
+$: note("[~ a5 ~ ~ ~ e5 ~ ~ ~ ~ c5 ~ ~ g4 ~ ~]/6")
+  .s("square")
+  .gain(0.3).decay(0.5).sustain(2)
+  .room(0.5)
+
+$: note("[~ ~ a6 ~ ~ ~ e6 ~]/2")
+  .s("triangle")
+  .gain(0.35).decay(0.06).sustain(1)
+  .pan("0.3 _ _ _ 0.7 _ _ _")
+
+
+  // VISUALS (HANIF)
+
+  // // scenes always running in background
+// osc(10, 0.1, 1.5)
+//   .color(1.2, 0.8, 0.8)
+//   .rotate(() => time * 0.1)
+//   .modulate(noise(3, 0.2).scale(() => 1 + a.fft[0] * 3), () => a.fft[1] * 0.5)
+//   .pixelate(() => 40 + a.fft[0] * 80, () => 10 + a.fft[0] * 80)
+//   .posterize(6).contrast(1.8).saturate(1.6)
+//   .out(o0)
+
+// scene 0 - flowing
+osc(10, 0.1, 1.5)
+  .color(1.2, 0.8, 0.8)
+  .rotate(() => time * spd)
+  .modulate(noise(3, 0.2).scale(() => 1 + a.fft[0] * 3), () => a.fft[1] * mod)
+  .kaleid(() => kali)
+  .pixelate(() => px + a.fft[0] * 40, () => px + a.fft[0] * 80)
+  .posterize(6).contrast(1.8).saturate(() => sat)
+  .blend(src(o0), () => fb)
+  .out(o0)
+
+
+
+noise(4, 0.1)
+  .color(0.2, 0.3, 1.0)
+  .modulate(osc(3, 0.3), () => a.fft[0] * 0.3)
+  .pixelate(() => 30 + a.fft[0] * 70, () => 15 + a.fft[0] * 70)
+  .posterize(3).contrast(1.5)
+  .out(o3)
+
+// render(o0)
+// render(o3)
+hush()
+
+
+
+
+
+
