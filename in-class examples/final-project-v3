@@ -1,0 +1,204 @@
+setcpm(60)
+
+// ---- INTRO
+
+// ATMOSHPHERIC MELODY VIBE
+// $: note("[c2 eb2 g2 bb2 g2 eb2 [c2, g2] ~]/4")
+//   .s('gm_lead_3_calliope')
+//   .gain(0.2)
+//   .sustain(2)
+//   .delay(0.5)
+
+// $: s("hh*4")
+//   .gain(0.2)
+//   .hpf(5000)
+
+// $: s("bd [~ bd] bd ~")
+//   .gain("0.2 0.1")
+//   .room(0.4)
+//   .shape(0.3)
+
+// // -----------------------------
+
+// // // --- BEAT VARIATIONS ---
+// $: s("bd ~ bd:2 ~")
+//   .gain("0.2 0.3")
+//   .room(0.3)
+//   .shape(0.3)
+
+// $: s("bd bd bd bd")
+//   .gain(0.3)
+//   .room(0.2)
+
+// $: s("~ cp ~ cp")
+//   .gain("0.2, 0.15")
+//   .hpf(4000)
+//   .room(0.2)
+//   .decay(0.4)
+
+// $: s("[bd*4 cp*4]")
+//   .gain(0.3)
+//   .speed(2)
+//   .room(0.5)
+//   .hpf(800)
+
+// // HH VARIATIONS
+
+// $: s("hh*8")
+//   .gain(perlin.range(0.4, 0.7))
+//   .delay(0.4)
+//   .room(0.8)
+//   // .hpf(5000)
+//   .cutoff(6000)
+
+// $: s("cp*4")
+//   .gain(0.3)
+//   .speed("1 1.2 1.5 2")
+
+// $: s("hh*12")
+//   .gain(0.6)
+//   .hpf(5000)
+//   .room(0.9)
+//   .delay(0.3)
+
+//FAST HH (build)
+// $: s("hh*8")
+//   .gain(0.3)
+//   .hpf(4000)
+//   .delay(0.2)
+
+// // -----------------------------
+
+// MAIN MID MELODY
+// $: note("[a4 c5 e5 g5 e5 c5 a4 g4]/4")
+//   .s("square")
+//   .gain(0.3)
+//   .decay(0.3).sustain(1.5)
+//   .delay(0.4).delaytime(0.25)
+//   .decay(0.1)
+//   .chunk(2, x => x.rev()) 
+
+// // // SECONDARY MID MELODY
+// $: note("[a4 c5 e5 g5 e5 a4 ~ [g5, e5] ]*0.5")
+//   .s("square")
+//   .speed("1 0.8 1.2 1")
+//   .gain(0.3).decay(0.2).sustain(2)
+//   .delay(0.4).delaytime(0.25).decay(0.1)
+
+// // -----------------------------
+
+// TOOTH 1 (low)
+// $: note("[a2 ~ c3 ~ a2 ~ g2 e2]/2")
+//   .s("sawtooth")
+//   .lpf(perlin.range(200, 1200))
+//   .resonance(1)
+//   .gain(0.3)
+//   .shape(0.3)
+//   .decay(0.0)
+//   .sustain(1).delay(0.0)
+
+// VERY LOW TOOTH BUZZ BASS
+// $: note("[a1 c2 a1 g1]/2")
+//   .s("sawtooth")
+//   .lpf(perlin.range(400, 800))
+//   .resonance(1.2)
+//   .gain(0.4)
+//   .shape(0.5)
+//   .delay(0.2)
+//   .delaytime(0.25)
+
+//VERY LOW SLOW TOOTH BUZZ BASS ALT 
+// $: note("[a1 ~ c2 ~ g1 ~ e1 ~ g1 ~ c2 ~ b1 ~ a1 ~]/8")
+//   .s("sawtooth")
+//   .lpf(perlin.range(150, 500))
+//   .resonance(2)
+//   .gain(0.2)
+//   .shape(0.7)
+  //.slow(2)
+
+//FAST LOW MEEPS
+// $: note("a1 ~ a1 ~ g1 ~ e1 ~")
+//   .s("gm_synth_brass_1")
+//   .gain(0.5)
+//   .lpf(800)
+//   .decay(0.3)
+//   .sustain(2)
+
+// //SLOW LOW-MID 
+// $: note("[a1 ~ ~ a1 ~ ~ ~ a1]/2 ")
+//   .s("square")
+//   .gain(0.5)
+//   .decay(0.2)
+//   .sustain(0.2)
+//   .lpf(600)
+
+// // -----------------------------
+
+ // (lowkey annoying) BEEPS
+// $: note("[~ a5 ~ ~ ~ e5 ~ ~ ~ ~ c5 ~ ~ g4 ~ ~]/6")
+//   .s("square")
+//   .gain(0.1)
+//   .decay(0.5).sustain(2)
+//   .room(0.5)
+
+// // HIGH PITCHED SLOW BEEPS
+// $: note("[~ a6 ~ e6 ~ a6 ~ g6]/4")
+//   .s("triangle")
+//   .gain(0.2)
+//   .room(0.6)
+//   .delay(0.3)
+
+// SPACY ZEEPS
+// $: note("[c2 <eb2 <g2 g1>>]*2")
+//   .s('space')
+//   //.vowel("[a|e|i|u]")
+//   .vowel("[e|i|u]")
+//   .gain(0.8)
+//  .sustain(2)
+
+// ---------- BUILD
+
+// $: note("[c2 eb2 g2 bb2 g2 eb2 c2 ~]/2")
+//   .s('gm_lead_3_calliope')
+//   .gain(0.8)
+//   .sustain(2)
+//   .delay(0.5)
+//   .lpf(200).resonance(2)
+
+
+// $: note("[a2 ~ c3 ~ a2 ~ g2 e2]/2")
+//   .s("sawtooth")
+//   .resonance(1)
+//   .gain(0.4)
+//   .shape(0.3)
+//   .decay(0.0)
+//   .sustain(1)
+//   .delay(0.0)
+//   .lpf(200).resonance(2)
+
+
+// $: s("hh*8")
+//   .gain(0.6)
+//   .hpf(5000)
+//   .delay(0.2)
+//   .lpf(2000).resonance(2)
+
+
+// $: s("cp*4")
+//   .gain(0.3)
+//   .speed("1 1.2 1.5 2")
+//   .lpf(2000).resonance(2)
+
+
+// $: s("bd bd bd bd")
+//   .gain(0.2)
+//   .room(0.2)
+//   .lpf(2000).resonance(2)
+
+
+// // // SECONDARY MID MELODY
+// $: note("[a4 c5 e5 g5 e5 a4 ~ [g5, e5] ]*0.5")
+//   .s("square")
+//   .speed("1 0.8 1.2 1")
+//   .gain(0.3).decay(0.2).sustain(2)
+//   .delay(0.4).delaytime(0.25).decay(0.1)
